@@ -1,3 +1,4 @@
+
 from __future__ import annotations
 
 import os
@@ -373,6 +374,9 @@ def predict_structure(
                     # TODO: add pad_input_mulitmer()
                     input_features = feature_dict
                     input_features["asym_id"] = input_features["asym_id"] - input_features["asym_id"][...,0]
+                    input_features['chain_num'] = input_features["asym_id"].max() + 1
+                    model_runner.chain_num = input_features['chain_num']
+
             else:
                 if model_num == 0:
                     input_features = model_runner.process_features(feature_dict, random_seed=seed)
